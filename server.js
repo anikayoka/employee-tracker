@@ -3,12 +3,19 @@ const inquirer = require('inquirer');
 const cTable = require('console.table');
 
 //DB connect
-connection.connect((err) => {
+db.connect((err) => {
   if (err) throw err;
   dbMain();
 });
 
-//User prompts
+
+const exitApp = () => {
+  db.end();
+  process.exit(0)
+}
+
+
+ //User prompts
 const dbMain = () => {
   inquirer.prompt([
     {
@@ -36,7 +43,7 @@ const dbMain = () => {
     .then(({ input }) => {
       switch (input) {
         case 'View all departments':
-          viewAllDepartments();
+          viewAllDepts();
           break;
         case 'View all roles':
           viewAllRoles();
@@ -44,13 +51,14 @@ const dbMain = () => {
         case 'View all employees':
           viewAllEmployees();
           break;
-        case 'View employees by department': viewEmployeesByDepartment();
+        case 'View employees by department': 
+        viewEmployeesByDept();
           break;
         case 'View department budget':
-          viewDepartmentBudget();
+          viewDeptBudget();
           break;
         case 'Add department':
-          addDepartment();
+          addDept();
           break;
         case 'Add role':
           addRole();
@@ -62,10 +70,10 @@ const dbMain = () => {
           updateEmployeeRole();
           break;
         case 'Update employee managers':
-          updateEmployeeManager();
+          updateEmployeeMgrs();
           break;
         case 'Delete department':
-          deleteDepartment();
+          deleteDept();
           break;
         case 'Delete role':
           deleteRole();
@@ -78,4 +86,27 @@ const dbMain = () => {
           break;
       };
     }); 
-};    
+};
+
+
+function viewAllDepts (){
+  db.query("SELECT * FROM department", function(err, data){
+    if(err)throw err;
+    cTable(data)
+    dbMain();
+  })
+}
+function viewAllRoles (){
+  db.query("SELECT * FROM roles", function(err, data){
+    if(err)throw err;
+    cTable(data)
+    dbMain();
+  })
+}
+function viewAllEmployees (){
+  db.query("SELECT * FROM employee", function(err, data){
+    if(err)throw err;
+    cTable(data)
+    dbMain();
+  })
+}
