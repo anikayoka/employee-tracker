@@ -15,7 +15,7 @@ const exitApp = () => {
 }
 
 
- //User prompts
+//User prompts
 const dbMain = () => {
   inquirer.prompt([
     {
@@ -51,8 +51,8 @@ const dbMain = () => {
         case 'View all employees':
           viewAllEmployees();
           break;
-        case 'View employees by department': 
-        viewEmployeesByDept();
+        case 'View employees by department':
+          viewEmployeesByDept();
           break;
         case 'View department budget':
           viewDeptBudget();
@@ -85,28 +85,55 @@ const dbMain = () => {
           exitApp();
           break;
       };
-    }); 
+    });
 };
 
+// VIEWS
+function viewAllDepts() {
+  db.query("SELECT * FROM department", function (err, data) {
+    if (err) throw err;
+    cTable(data)
+    dbMain();
+  })
+}
+function viewAllRoles() {
+  db.query("SELECT * FROM roles", function (err, data) {
+    if (err) throw err;
+    cTable(data)
+    dbMain();
+  })
+}
+function viewAllEmployees() {
+  db.query("SELECT * FROM employee", function (err, data) {
+    if (err) throw err;
+    cTable(data)
+    dbMain();
+  })
+};
+function viewEmployeesByDept() {
+  db.query
+    ("SELECT e.first_name, e.last_name, r.title, r.salary, e2.first_name, e2.last_name, d.dept_name FROM employee e LEFT JOIN roles r ON r.id = e.role_id LEFT JOIN department d ON d.id = r.department_id LEFT JOIN employee e2 ON e.manager_id = e2.id ORDER BY d.dept_name", function (err, data) {
+    if (err) throw err;
+    cTable(data)
+    dbMain();
+  })
+};
+function viewDeptBudget() {
+  db.query ("SELECT d.dept_name, r.salary, sum(r.salary) AS budget FROM employee e LEFT JOIN roles r ON r.id = e.role_id LEFT JOIN department d ON d.id = r.department_id ORDER BY d.dept_name, r.salary", function (err, data) {
+    if (err) throw err;
+    cTable(data)
+    dbMain();  
+  })
+};
 
-function viewAllDepts (){
-  db.query("SELECT * FROM department", function(err, data){
-    if(err)throw err;
-    cTable(data)
-    dbMain();
-  })
-}
-function viewAllRoles (){
-  db.query("SELECT * FROM roles", function(err, data){
-    if(err)throw err;
-    cTable(data)
-    dbMain();
-  })
-}
-function viewAllEmployees (){
-  db.query("SELECT * FROM employee", function(err, data){
-    if(err)throw err;
-    cTable(data)
-    dbMain();
-  })
+// ADDS
+
+function  addDept() {
+  // Call inquirer first, then push database
+  inquirer.prompt([
+    name: 'newDept',
+    type: 'input',
+    message: 'What department would you like to add'
+  ])
+  db.query ()
 }
