@@ -254,9 +254,8 @@ function deleteDepartment() {
   inquirer.prompt([
     {
       name: "dept_name",
-      type: "list",
+      type: "input",
       message: "Which department to delete?",
-      choices: department
     }
   ]).then((response) => {
     db.query("DELETE FROM department WHERE id=?", [response.dept_name], function (err, data) {
@@ -271,9 +270,8 @@ function deleteRole() {
   inquirer.prompt([
     {
       name: "title",
-      type: "list",
-      message: "Which role to delete?",
-      choices: roles
+      type: "input",
+      message: "Which role to delete?"
     }
   ]).then((response) => {
     db.query("DELETE FROM roles WHERE id=?", [response.title], function (err, data) {
@@ -288,9 +286,8 @@ function deleteEmployee() {
   inquirer.prompt([
     {
       name: "empId",
-      type: "list",
-      message: "Which employee to delete?",
-      choices: employee
+      type: "input",
+      message: "Which employee to delete?"
     }
   ]).then((response) => {
     db.query("DELETE FROM employee WHERE id=?", [response.empId], function (err, data) {
