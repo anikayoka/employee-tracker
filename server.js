@@ -187,4 +187,29 @@ function addEmployee() {
       dbMain();
     })
   })
-}; 
+};
+
+// UPDATE
+
+function updateEmployee() {
+  inquirer.prompt([
+    {
+    name: "empUpdate",
+    type: "input",
+    message: "Update which employee?"
+    },
+    {
+      name: "updateRole",
+      type: "input",
+      message: "What is the updated role?"
+    }
+  ]).then((response) => {
+    db.query("UPDATE employee SET role_id=? WHERE id=?", [ response.updateRole, response.empUpdate ], function (err, data) {
+      if (err) throw err
+      cTable(data)
+      dbMain();
+    })
+  })
+};
+
+// DELETES
