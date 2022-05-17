@@ -22,8 +22,8 @@
 
   ## Links
 
-  * Video walkthrough: https://drive.google.com/file/d/1l9x7OK58xrKzhoMlcmmGPlHT8239H7nK/view?usp=sharing
-  * Github: https://github.com/anikayoka/all-about-readme
+  * [Video walkthrough](https://drive.google.com/file/d/1XlzrXtBwjSyNAPrmJmIE-lteFmJErQOc/view?usp=sharing)
+  * [Github](https://github.com/anikayoka/employee-tracker)
 
   
   ## License
@@ -38,7 +38,7 @@
 
   ## Tests
 
-  To test this app, open up the file in VS Code. Open the terminal, change directory to root folder ‘all-about-readme’, and run ‘node index.js’. Answer the prompts and view the preview of the ‘README.md’ file in the ‘dist’ folder.
+  To test this app, open up the file in VS Code. Open the terminal, change directory to root folder ‘employee-tracker’, and run ‘npm start’ and answer the prompts.
 
   ## Questions
 

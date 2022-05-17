@@ -119,7 +119,7 @@ function viewEmployeesByDept() {
     })
 };
 function viewDeptBudget() {
-  db.query("SELECT d.dept_name, r.salary, sum(r.salary) AS budget FROM employee e LEFT JOIN roles r ON r.id = e.role_id LEFT JOIN department d ON d.id = r.department_id ORDER BY d.dept_name, r.salary", function (err, data) {
+  db.query("SELECT d.dept_name, r.salary, sum(r.salary) AS budget FROM employee e LEFT JOIN roles r ON r.id = e.role_id LEFT JOIN department d ON d.id = r.department_id GROUP BY d.dept_name, r.salary", function (err, data) {
     if (err) throw err;
     console.table(data)
     dbMain();
@@ -167,7 +167,9 @@ function addRole() {
         {name:"Human Resources",value:3},
         {name:"Marketing",value:4},
         {name:"Operations",value:5},
-        {name:"Sales",value:6}
+        {name:"Sales",value:6},
+        {name:"Purchasing",value:7},
+        {name:"C Suite",value:8}
       ]
     }
   ]).then((response) => {
